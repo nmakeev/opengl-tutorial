@@ -2,6 +2,11 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <Windows.h>
+#include "loader.h"
+#include "renderer.h"
+#include "static_shader.h"
+
+#include <vector>
 
 void processInput(GLFWwindow* window) {
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -21,17 +26,21 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-  GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL Tutorial Project", NULL, NULL);
+  //TODO: settings there?
+  const int WINDOW_WIDTH = 800;
+  const int WINDOW_HEIGHT = 600;
+
+  //window part
+  GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "OpenGL Tutorial Project", NULL, NULL);
   if (!window)
   {
     std::cout << "Failed to created GLFW window" << std::endl;
     glfwTerminate();
     return -1;
   }
-
   glfwMakeContextCurrent(window);
-  glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 
+  //glad initialization
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
     std::cout << "Failed to initialize GLAD" << std::endl;
@@ -39,17 +48,41 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     return -1;
   }
 
+  //vieport
+  glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+  glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
+
+  Loader loader;
+  Renderer renderer;
+
+  std::vector<float> verticies = {
+       -0.5f, 0.5f, 0.0f,
+       -0.5f, -0.5f, 0.0f,
+       0.5f, -0.5f, 0.0f,
+
+       0.5f, -0.5f, 0.0f,
+       0.5f, 0.5f, 0.0f,
+       -0.5f, 0.5f, 0.0f,
+  };
+
+  RawModel model = loader.loadToVAO(move(verticies));
+
+  StaticShader shader;
+
   while (!glfwWindowShouldClose(window))
   {
     processInput(window);
 
-    glClearColor(.2f, .3f, .3f, 1.f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    renderer.prepare();
+    shader.start();
+    renderer.render(model);
+    shader.stop();
 
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
 
+  shader.cleanUp(); //TODO: destructor!!!
   glfwTerminate();
   return 0;
 }
