@@ -13,7 +13,8 @@ void Renderer::prepare() {
 void Renderer::render(RawModel& model) {
   glBindVertexArray(model.getVaoID());
   glEnableVertexAttribArray(0); //TODO: this is not ok
-  glDrawArrays(GL_TRIANGLES, 0, model.getVertexCount());
+  //glDrawArrays(GL_TRIANGLES, 0, model.getVertexCount());
+  glDrawElements(GL_TRIANGLES, model.getVertexCount(), GL_UNSIGNED_INT, 0);
   glDisableVertexAttribArray(0);
   glBindVertexArray(0);
 }

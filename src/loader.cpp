@@ -4,11 +4,13 @@
 
 #include <glad/glad.h>
 #include "loader.h"
+#include <iostream>
 
 //TODO: no need to use vector here?
-RawModel Loader::loadToVAO(std::vector<float> positions) {
+RawModel Loader::loadToVAO(std::vector<float> positions, std::vector<int> indicies) {
+  GLuint vertexCount = indicies.size();
   GLuint vaoID = createVAO();
-  GLuint vertexCount = positions.size() / 3;
+  bindIndiciesBuffer(move(indicies));
   storeDataInAttributeList(0, move(positions));
   unbindVAO();
 
@@ -41,6 +43,8 @@ void Loader::unbindVAO() const {
 }
 
 Loader::~Loader() {
+  std::cerr << "Loader clean up" << std::endl;
+
   for (auto vaoID : m_vaos) {
     glDeleteVertexArrays(1, &vaoID);
   }
@@ -48,4 +52,13 @@ Loader::~Loader() {
   for (auto vboID : m_vbos) {
     glDeleteBuffers(1, &vboID);
   }
+}
+
+void Loader::bindIndiciesBuffer(std::vector<int> indicies) {
+  GLuint vboID;
+  glGenBuffers(1, &vboID);
+  m_vbos.push_back(vboID);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicies.size() * sizeof(int), &indicies[0], GL_STATIC_DRAW);
+  //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); //TODO: causes an error! Why we don't need to unbind IBO???
 }

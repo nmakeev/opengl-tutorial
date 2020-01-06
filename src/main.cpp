@@ -56,16 +56,18 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
   Renderer renderer;
 
   std::vector<float> verticies = {
-       -0.5f, 0.5f, 0.0f,
-       -0.5f, -0.5f, 0.0f,
-       0.5f, -0.5f, 0.0f,
-
-       0.5f, -0.5f, 0.0f,
-       0.5f, 0.5f, 0.0f,
-       -0.5f, 0.5f, 0.0f,
+       -0.5f, 0.5f, 0.0f,   //v0
+       -0.5f, -0.5f, 0.0f,  //v1
+       0.5f, -0.5f, 0.0f,   //v2
+       0.5f, 0.5f, 0.0f,    //v3
   };
 
-  RawModel model = loader.loadToVAO(move(verticies));
+  std::vector<int> indicies = {
+          0, 1, 3,
+          3, 1, 2
+  };
+
+  RawModel model = loader.loadToVAO(move(verticies), move(indicies));
 
   StaticShader shader;
 

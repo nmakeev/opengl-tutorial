@@ -81,6 +81,7 @@ void ShaderProgram::bindAttribute(int attribute, std::string name) const {
 }
 
 ShaderProgram::~ShaderProgram() {
+  std::cerr << "Shader program clean up" << std::endl;
   stop();
   glDetachShader(m_programID, m_vertexShaderID);
   glDetachShader(m_programID, m_fragmentShaderID);

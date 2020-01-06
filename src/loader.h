@@ -10,12 +10,13 @@
 
 class Loader {
 public:
-  RawModel loadToVAO(std::vector<float> positions);
+  RawModel loadToVAO(std::vector<float> positions, std::vector<int> indicies);
   ~Loader();
 private:
   unsigned int createVAO();
   void storeDataInAttributeList(int attributeNumber, std::vector<float> data);
   void unbindVAO() const;
+  void bindIndiciesBuffer(std::vector<int> indicies);
 
   std::vector<GLuint> m_vaos;
   std::vector<GLuint> m_vbos;
