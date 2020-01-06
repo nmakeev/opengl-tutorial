@@ -7,6 +7,6 @@
 StaticShader::StaticShader() : ShaderProgram(VERTEX_FILE, FRAGMENT_FILE) {
 }
 
-void StaticShader::bindAttributes() {
+void StaticShader::bindAttributes() const {
   bindAttribute(0, "position");
 }

@@ -20,11 +20,8 @@ GLuint loadShader(std::string path, GLenum type) {
     }
 
     std::stringstream ss;
-
     ss << file.rdbuf();
-
     file.close();
-
     code = ss.str();
   } catch (std::exception& e) {
     std::cerr << "SHADER LOAD ERROR:" << '\n' << e.what() << std::endl;
@@ -41,8 +38,8 @@ GLuint loadShader(std::string path, GLenum type) {
 }
 
 ShaderProgram::ShaderProgram(std::string vertexFile, std::string fragmentFile) {
-  m_vertexShaderID = loadShader(vertexFile, GL_VERTEX_SHADER);
-  m_fragmentShaderID = loadShader(fragmentFile, GL_FRAGMENT_SHADER);
+  m_vertexShaderID = loadShader(move(vertexFile), GL_VERTEX_SHADER);
+  m_fragmentShaderID = loadShader(move(fragmentFile), GL_FRAGMENT_SHADER);
   m_programID = glCreateProgram();
   glAttachShader(m_programID, m_vertexShaderID);
   glAttachShader(m_programID, m_fragmentShaderID);
@@ -67,28 +64,28 @@ ShaderProgram::ShaderProgram(std::string vertexFile, std::string fragmentFile) {
   }
 }
 
-void ShaderProgram::bindAttributes() {
-
+void ShaderProgram::bindAttributes() const {
 }
 
-void ShaderProgram::start() {
+void ShaderProgram::start() const {
   glUseProgram(m_programID);
 }
 
-void ShaderProgram::stop() {
+void ShaderProgram::stop() const {
   glUseProgram(0);
 }
 
-void ShaderProgram::cleanUp() {
+//TODO: name make r-value?
+void ShaderProgram::bindAttribute(int attribute, std::string name) const {
+  glBindAttribLocation(m_programID, attribute, name.c_str());
+}
+
+ShaderProgram::~ShaderProgram() {
   stop();
   glDetachShader(m_programID, m_vertexShaderID);
   glDetachShader(m_programID, m_fragmentShaderID);
   glDeleteShader(m_vertexShaderID);
   glDeleteShader(m_fragmentShaderID);
   glDeleteProgram(m_programID);
-}
-
-void ShaderProgram::bindAttribute(int attribute, std::string name) {
-  glBindAttribLocation(m_programID, attribute, name.c_str());
 }
 

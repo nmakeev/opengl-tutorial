@@ -5,17 +5,18 @@
 #ifndef OPENGL_TUTORIAL_RAW_MODEL_H
 #define OPENGL_TUTORIAL_RAW_MODEL_H
 
+#include "glad/glad.h"
 
 class RawModel {
 public:
-  RawModel(int vaoID, int vertexCount) :
+  RawModel(GLuint vaoID, GLsizei vertexCount) :
     m_vaoID(vaoID), m_vertexCount(vertexCount) {
   }
-  unsigned int getVaoID() const;
-  int getVertexCount() const;
+  GLuint getVaoID() const;
+  GLsizei getVertexCount() const;
 private:
-  unsigned int m_vaoID;
-  int m_vertexCount;
+  GLuint m_vaoID;
+  GLsizei m_vertexCount;
 };
 
 

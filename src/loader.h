@@ -12,13 +12,13 @@ class Loader {
 public:
   RawModel loadToVAO(std::vector<float> positions);
   ~Loader();
-private: //TODO: no need to make this functions as methods, separate them!
+private:
   unsigned int createVAO();
   void storeDataInAttributeList(int attributeNumber, std::vector<float> data);
   void unbindVAO() const;
 
-  std::vector<unsigned int> m_vaos;
-  std::vector<unsigned int> m_vbos;
+  std::vector<GLuint> m_vaos;
+  std::vector<GLuint> m_vbos;
 };
 
 

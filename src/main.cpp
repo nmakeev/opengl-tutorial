@@ -82,7 +82,6 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     glfwPollEvents();
   }
 
-  shader.cleanUp(); //TODO: destructor!!!
   glfwTerminate();
   return 0;
 }

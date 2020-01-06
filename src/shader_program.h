@@ -13,15 +13,14 @@ class ShaderProgram {
 public:
   ShaderProgram(std::string vertexFile, std::string fragmentFile);
 
-  //TODO: complete forgot about const!!!!!!!
-  void start();
-  void stop();
+  ~ShaderProgram();
 
-  void cleanUp();
+  void start() const;
+  void stop() const;
 
 protected:
-  virtual void bindAttributes();
-  void bindAttribute(int attribute, std::string name);
+  virtual void bindAttributes() const;
+  void bindAttribute(int attribute, std::string name) const;
 
 private:
   GLuint m_programID;

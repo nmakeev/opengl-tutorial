@@ -4,10 +4,10 @@
 
 #include "raw_model.h"
 
-unsigned int RawModel::getVaoID() const {
+GLuint RawModel::getVaoID() const {
   return m_vaoID;
 }
 
-int RawModel::getVertexCount() const {
+GLsizei RawModel::getVertexCount() const {
   return m_vertexCount;
 }

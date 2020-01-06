@@ -16,7 +16,7 @@ public:
   StaticShader();
 
 protected:
-  void bindAttributes() override;
+  void bindAttributes() const override;
 };
 
 
