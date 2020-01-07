@@ -5,6 +5,8 @@
 #include "loader.h"
 #include "renderer.h"
 #include "static_shader.h"
+#include "model_texture.h"
+#include "textured_model.h"
 
 #include <vector>
 
@@ -67,7 +69,18 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
           3, 1, 2
   };
 
-  RawModel model = loader.loadToVAO(move(verticies), move(indicies));
+  std::vector<float> textureCoords = {
+          0.f, 0.f,
+          0.f, 1.f,
+          1.f, 1.f,
+          1.f, 0.f
+  };
+
+  RawModel model = loader.loadToVAO(move(verticies), move(textureCoords), move(indicies));
+  ModelTexture texture {loader.loadTexture("resources/stones.jpg", false)};
+  TexturedModel texturedModel {
+    model, texture
+  };
 
   StaticShader shader;
 
@@ -77,7 +90,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
     renderer.prepare();
     shader.start();
-    renderer.render(model);
+    renderer.render(texturedModel);
     shader.stop();
 
     glfwSwapBuffers(window);

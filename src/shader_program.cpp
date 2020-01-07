@@ -24,7 +24,7 @@ GLuint loadShader(std::string path, GLenum type) {
     file.close();
     code = ss.str();
   } catch (std::exception& e) {
-    std::cerr << "SHADER LOAD ERROR:" << '\n' << e.what() << std::endl;
+    std::cerr << "SHADER LOAD ERROR:\n" << e.what() << std::endl;
   }
 
   const GLchar* shaderCode = code.c_str();
