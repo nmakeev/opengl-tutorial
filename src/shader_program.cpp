@@ -37,31 +37,35 @@ GLuint loadShader(std::string path, GLenum type) {
   return shaderID;
 }
 
+void checkShaderError(int shaderId) {
+  int success;
+  glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
+  if (!success) {
+    char infoLog[512];
+    glGetShaderInfoLog(shaderId, 512, NULL, infoLog);
+    std::cerr << "ERROR VERTEX SHADER COMPILATION FAILED" << '\n';
+    std::cerr << infoLog << std::endl;
+  }
+}
+
 ShaderProgram::ShaderProgram(std::string vertexFile, std::string fragmentFile) {
   m_vertexShaderID = loadShader(move(vertexFile), GL_VERTEX_SHADER);
   m_fragmentShaderID = loadShader(move(fragmentFile), GL_FRAGMENT_SHADER);
   m_programID = glCreateProgram();
   glAttachShader(m_programID, m_vertexShaderID);
   glAttachShader(m_programID, m_fragmentShaderID);
+  bindAttributes();
   glLinkProgram(m_programID);
   glValidateProgram(m_programID);
-  bindAttributes();
 
-  int success;
-  char infoLog[512];
-  glGetShaderiv(m_vertexShaderID, GL_COMPILE_STATUS, &success);
-  if (!success) {
-    glGetShaderInfoLog(m_vertexShaderID, 512, NULL, infoLog);
-    std::cerr << "ERROR VERTEX SHADER COMIPLATION FAILED" << '\n';
-    std::cerr << infoLog << std::endl;
-  }
+  checkShaderError(m_vertexShaderID);
+  checkShaderError(m_fragmentShaderID);
 
-  glGetShaderiv(m_fragmentShaderID, GL_COMPILE_STATUS, &success);
-  if (!success) {
-    glGetShaderInfoLog(m_fragmentShaderID, 512, NULL, infoLog);
-    std::cerr << "ERROR VERTEX SHADER COMIPLATION FAILED" << '\n';
-    std::cerr << infoLog << std::endl;
-  }
+  /*
+   * Consideration: we have a flag: status.
+   * checkShaderError puts there value 0 if there is no mistakes, otherwise - 1;
+   * Then, after loading we can check this flag and shut down program gracefully with error message box
+   */
 }
 
 void ShaderProgram::bindAttributes() const {

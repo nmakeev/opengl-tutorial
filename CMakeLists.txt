@@ -20,11 +20,11 @@ add_subdirectory(glad/)
 target_link_libraries(opengl_tutorial glad)
 
 #copy shaders to target location
-add_custom_command(TARGET opengl_tutorial PRE_BUILD
+add_custom_command(TARGET opengl_tutorial
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_SOURCE_DIR}/shaders/ $<TARGET_FILE_DIR:opengl_tutorial>/shaders/)
 
 #copy resources to target location
-add_custom_command(TARGET opengl_tutorial PRE_BUILD
+add_custom_command(TARGET opengl_tutorial
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_SOURCE_DIR}/resources/ $<TARGET_FILE_DIR:opengl_tutorial>/resources/)
