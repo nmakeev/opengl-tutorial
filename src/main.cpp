@@ -2,11 +2,11 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <Windows.h>
-#include "loader.h"
-#include "renderer.h"
-#include "static_shader.h"
-#include "model_texture.h"
-#include "textured_model.h"
+#include "render/loader.h"
+#include "render/renderer.h"
+#include "shaders/static_shader.h"
+#include "textures/model_texture.h"
+#include "models/textured_model.h"
 
 #include <vector>
 

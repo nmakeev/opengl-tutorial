@@ -10,7 +10,7 @@ set(glfw3_DIR D:/tools/glfw/lib/cmake/glfw3)
 find_package(glfw3 3.3 REQUIRED)
 find_package(OpenGL REQUIRED)
 
-add_executable(opengl_tutorial src/main.cpp src/raw_model.cpp src/raw_model.h src/loader.cpp src/loader.h src/renderer.cpp src/renderer.h src/shader_program.cpp src/shader_program.h src/static_shader.cpp src/static_shader.h src/stb_image.cpp src/model_texture.cpp src/model_texture.h src/textured_model.cpp src/textured_model.h)
+add_executable(opengl_tutorial src/main.cpp src/models/raw_model.cpp src/models/raw_model.h src/render/loader.cpp src/render/loader.h src/render/renderer.cpp src/render/renderer.h src/shaders/shader_program.cpp src/shaders/shader_program.h src/shaders/static_shader.cpp src/shaders/static_shader.h src/stb_image.cpp src/textures/model_texture.cpp src/textures/model_texture.h src/models/textured_model.cpp src/models/textured_model.h)
 
 target_link_libraries(opengl_tutorial glfw)
 target_include_directories(opengl_tutorial PUBLIC ${OPENGL_INCLUDE_DIR})

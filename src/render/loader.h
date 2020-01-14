@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 
-#include "raw_model.h"
+#include "../models/raw_model.h"
 
 class Loader {
 public:

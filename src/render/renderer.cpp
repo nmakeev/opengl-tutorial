@@ -4,7 +4,7 @@
 
 #include "glad/glad.h"
 #include "renderer.h"
-#include "textured_model.h"
+#include "../models/textured_model.h"
 
 void Renderer::prepare() {
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);

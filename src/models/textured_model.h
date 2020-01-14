@@ -6,7 +6,7 @@
 #define OPENGL_TUTORIAL_TEXTURED_MODEL_H
 
 #include "raw_model.h"
-#include "model_texture.h"
+#include "../textures/model_texture.h"
 
 class TexturedModel {
 public:

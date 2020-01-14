@@ -4,7 +4,7 @@
 
 #include <glad/glad.h>
 #include "loader.h"
-#include "stb_image.h"
+#include "../stb_image.h"
 #include <iostream>
 
 //TODO: no need to use vector here?

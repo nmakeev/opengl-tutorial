@@ -5,8 +5,8 @@
 #ifndef OPENGL_TUTORIAL_RENDERER_H
 #define OPENGL_TUTORIAL_RENDERER_H
 
-#include "raw_model.h"
-#include "textured_model.h"
+#include "../models/raw_model.h"
+#include "../models/textured_model.h"
 
 class Renderer {
 public:
