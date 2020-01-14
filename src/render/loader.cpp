@@ -10,12 +10,12 @@
 //TODO: no need to use vector here?
 RawModel Loader::loadToVAO(std::vector<float> positions, std::vector<int> indicies) {
   GLuint vertexCount = indicies.size();
-  GLuint vaoID = createVAO();
+  GLuint vaoId = createVAO();
   bindIndiciesBuffer(move(indicies));
   storeDataInAttributeList(0, 3, move(positions));
   unbindVAO();
 
-  return RawModel(vaoID, vertexCount);
+  return RawModel(vaoId, vertexCount);
 }
 
 RawModel Loader::loadToVAO(std::vector<float> positions, std::vector<float> textureCoords, std::vector<int> indicies) {
@@ -30,11 +30,11 @@ RawModel Loader::loadToVAO(std::vector<float> positions, std::vector<float> text
 }
 
 GLuint Loader::createVAO() {
-  GLuint vaoID;
-  glGenVertexArrays(1, &vaoID); //1 is the count of generated arrays
-  m_vaos.push_back(vaoID);
-  glBindVertexArray(vaoID);
-  return vaoID;
+  GLuint vaoId;
+  glGenVertexArrays(1, &vaoId); //1 is the count of generated arrays
+  m_vaos.push_back(vaoId);
+  glBindVertexArray(vaoId);
+  return vaoId;
 }
 
 void Loader::storeDataInAttributeList(int attributeNumber, int coordinateSize, std::vector<float> data) {
@@ -57,25 +57,25 @@ void Loader::unbindVAO() const {
 Loader::~Loader() {
   std::cerr << "Loader clean up" << std::endl;
 
-  for (auto vaoID : m_vaos) {
-    glDeleteVertexArrays(1, &vaoID);
+  for (auto vaoId : m_vaos) {
+    glDeleteVertexArrays(1, &vaoId);
   }
 
-  for (auto vboID : m_vbos) {
-    glDeleteBuffers(1, &vboID);
+  for (auto vboId : m_vbos) {
+    glDeleteBuffers(1, &vboId);
   }
 
   //TODO: I think, I can pass something like that: glDeleteTextures(m_textures.size(), &m_textures[0]) ???
-  for (auto textureID : m_textures) {
-    glDeleteTextures(1, &textureID);
+  for (auto textureId : m_textures) {
+    glDeleteTextures(1, &textureId);
   }
 }
 
 void Loader::bindIndiciesBuffer(std::vector<int> indicies) {
-  GLuint vboID;
-  glGenBuffers(1, &vboID);
-  m_vbos.push_back(vboID);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
+  GLuint vboId;
+  glGenBuffers(1, &vboId);
+  m_vbos.push_back(vboId);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboId);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicies.size() * sizeof(int), &indicies[0], GL_STATIC_DRAW);
   //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); //TODO: causes an error! Why we don't need to unbind IBO???
 }

@@ -4,8 +4,8 @@
 
 #include "raw_model.h"
 
-GLuint RawModel::getVaoID() const {
-  return m_vaoID;
+GLuint RawModel::getVaoId() const {
+  return m_vaoId;
 }
 
 GLsizei RawModel::getVertexCount() const {

@@ -9,13 +9,13 @@
 
 class RawModel {
 public:
-  RawModel(GLuint vaoID, GLsizei vertexCount) :
-    m_vaoID(vaoID), m_vertexCount(vertexCount) {
+  RawModel(GLuint vaoId, GLsizei vertexCount) :
+          m_vaoId(vaoId), m_vertexCount(vertexCount) {
   }
-  GLuint getVaoID() const;
+  GLuint getVaoId() const;
   GLsizei getVertexCount() const;
 private:
-  GLuint m_vaoID;
+  GLuint m_vaoId;
   GLsizei m_vertexCount;
 };
 

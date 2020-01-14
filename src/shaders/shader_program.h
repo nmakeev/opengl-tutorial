@@ -20,12 +20,14 @@ public:
 
 protected:
   virtual void bindAttributes() const;
+
   void bindAttribute(int attribute, std::string name) const;
+  GLuint getUniformLocation(const std::string& uniformName) const;
 
 private:
-  GLuint m_programID;
-  GLuint m_vertexShaderID;
-  GLuint m_fragmentShaderID;
+  GLuint m_programId;
+  GLuint m_vertexShaderId;
+  GLuint m_fragmentShaderId;
 };
 
 GLuint loadShader(std::string path, GLenum type);

@@ -8,7 +8,7 @@
 
 using namespace std;
 
-TexturedModel::TexturedModel(RawModel model, ModelTexture texture) : m_model(move(model)), m_texture(move(texture)) {
+TexturedModel::TexturedModel(RawModel model, ModelTexture texture) : m_model(model), m_texture(texture) {
 }
 
 const RawModel &TexturedModel::getModel() const {

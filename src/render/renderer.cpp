@@ -12,7 +12,7 @@ void Renderer::prepare() {
 }
 
 void Renderer::render(RawModel& model) {
-  glBindVertexArray(model.getVaoID());
+  glBindVertexArray(model.getVaoId());
   glEnableVertexAttribArray(0); //TODO: this is not ok
   //glDrawArrays(GL_TRIANGLES, 0, model.getVertexCount());
   glDrawElements(GL_TRIANGLES, model.getVertexCount(), GL_UNSIGNED_INT, 0);
@@ -21,7 +21,7 @@ void Renderer::render(RawModel& model) {
 }
 
 void Renderer::render(TexturedModel& textured_model) {
-  glBindVertexArray(textured_model.getModel().getVaoID());
+  glBindVertexArray(textured_model.getModel().getVaoId());
   glEnableVertexAttribArray(0); //TODO: this is not ok
   glEnableVertexAttribArray(1);
   //glDrawArrays(GL_TRIANGLES, 0, model.getVertexCount());

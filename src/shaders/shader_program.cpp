@@ -49,17 +49,17 @@ void checkShaderError(int shaderId) {
 }
 
 ShaderProgram::ShaderProgram(std::string vertexFile, std::string fragmentFile) {
-  m_vertexShaderID = loadShader(move(vertexFile), GL_VERTEX_SHADER);
-  m_fragmentShaderID = loadShader(move(fragmentFile), GL_FRAGMENT_SHADER);
-  m_programID = glCreateProgram();
-  glAttachShader(m_programID, m_vertexShaderID);
-  glAttachShader(m_programID, m_fragmentShaderID);
+  m_vertexShaderId = loadShader(move(vertexFile), GL_VERTEX_SHADER);
+  m_fragmentShaderId = loadShader(move(fragmentFile), GL_FRAGMENT_SHADER);
+  m_programId = glCreateProgram();
+  glAttachShader(m_programId, m_vertexShaderId);
+  glAttachShader(m_programId, m_fragmentShaderId);
   bindAttributes();
-  glLinkProgram(m_programID);
-  glValidateProgram(m_programID);
+  glLinkProgram(m_programId);
+  glValidateProgram(m_programId);
 
-  checkShaderError(m_vertexShaderID);
-  checkShaderError(m_fragmentShaderID);
+  checkShaderError(m_vertexShaderId);
+  checkShaderError(m_fragmentShaderId);
 
   /*
    * Consideration: we have a flag: status.
@@ -72,7 +72,7 @@ void ShaderProgram::bindAttributes() const {
 }
 
 void ShaderProgram::start() const {
-  glUseProgram(m_programID);
+  glUseProgram(m_programId);
 }
 
 void ShaderProgram::stop() const {
@@ -81,16 +81,20 @@ void ShaderProgram::stop() const {
 
 //TODO: name make r-value?
 void ShaderProgram::bindAttribute(int attribute, std::string name) const {
-  glBindAttribLocation(m_programID, attribute, name.c_str());
+  glBindAttribLocation(m_programId, attribute, name.c_str());
 }
 
 ShaderProgram::~ShaderProgram() {
   std::cerr << "Shader program clean up" << std::endl;
   stop();
-  glDetachShader(m_programID, m_vertexShaderID);
-  glDetachShader(m_programID, m_fragmentShaderID);
-  glDeleteShader(m_vertexShaderID);
-  glDeleteShader(m_fragmentShaderID);
-  glDeleteProgram(m_programID);
+  glDetachShader(m_programId, m_vertexShaderId);
+  glDetachShader(m_programId, m_fragmentShaderId);
+  glDeleteShader(m_vertexShaderId);
+  glDeleteShader(m_fragmentShaderId);
+  glDeleteProgram(m_programId);
+}
+
+GLuint ShaderProgram::getUniformLocation(const std::string &uniformName) const {
+  return glGetUniformLocation(m_programId, uniformName.c_str());
 }
 
