@@ -4,8 +4,6 @@
 
 #include "textured_model.h"
 
-#include <utility>
-
 using namespace std;
 
 TexturedModel::TexturedModel(RawModel model, ModelTexture texture) : m_model(model), m_texture(texture) {

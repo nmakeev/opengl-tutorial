@@ -5,7 +5,7 @@
 #ifndef OPENGL_TUTORIAL_RAW_MODEL_H
 #define OPENGL_TUTORIAL_RAW_MODEL_H
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 class RawModel {
 public:

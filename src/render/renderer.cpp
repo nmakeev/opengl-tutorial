@@ -2,7 +2,8 @@
 // Created by nsmak on 05.01.2020.
 //
 
-#include "glad/glad.h"
+#include <glad/glad.h>
+
 #include "renderer.h"
 #include "../models/textured_model.h"
 

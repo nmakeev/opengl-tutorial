@@ -5,8 +5,11 @@
 #ifndef OPENGL_TUTORIAL_SHADER_PROGRAM_H
 #define OPENGL_TUTORIAL_SHADER_PROGRAM_H
 
-#include "glad/glad.h"
 #include <string>
+
+#include <glad/glad.h>
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
 
 class ShaderProgram {
 
@@ -20,9 +23,14 @@ public:
 
 protected:
   virtual void bindAttributes() const;
+  virtual void getAllUniformLocations();
 
   void bindAttribute(int attribute, std::string name) const;
   GLuint getUniformLocation(const std::string& uniformName) const;
+  void loadFloat(GLint location, GLfloat value) const;
+  void loadVector3(GLint location, glm::vec3 value) const;
+  void loadBool(GLint location, bool value) const;
+  void loadMatrix(GLint location, glm::mat4 matrix) const;
 
 private:
   GLuint m_programId;

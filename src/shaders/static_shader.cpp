@@ -11,3 +11,11 @@ void StaticShader::bindAttributes() const {
   bindAttribute(0, "position");
   bindAttribute(1, "textureCoords");
 }
+
+void StaticShader::getAllUniformLocations() {
+  m_locationTransformationMatrix = getUniformLocation("transformationMatrix");
+}
+
+void StaticShader::loadTransformationMatrix(glm::mat4 matrix) {
+  loadMatrix(m_locationTransformationMatrix, matrix);
+}

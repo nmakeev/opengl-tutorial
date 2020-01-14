@@ -1,11 +1,12 @@
 //
 // Created by nsmak on 05.01.2020.
 //
+#include <iostream>
 
 #include <glad/glad.h>
+
 #include "loader.h"
 #include "../stb_image.h"
-#include <iostream>
 
 //TODO: no need to use vector here?
 RawModel Loader::loadToVAO(std::vector<float> positions, std::vector<int> indicies) {

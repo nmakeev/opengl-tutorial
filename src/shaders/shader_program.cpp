@@ -4,8 +4,10 @@
 
 #include <fstream>
 #include <sstream>
-#include "glad/glad.h"
 #include <iostream>
+
+#include <glm/gtc/type_ptr.hpp>
+#include <glad/glad.h>
 
 #include "shader_program.h"
 
@@ -57,6 +59,7 @@ ShaderProgram::ShaderProgram(std::string vertexFile, std::string fragmentFile) {
   bindAttributes();
   glLinkProgram(m_programId);
   glValidateProgram(m_programId);
+  getAllUniformLocations();
 
   checkShaderError(m_vertexShaderId);
   checkShaderError(m_fragmentShaderId);
@@ -69,6 +72,9 @@ ShaderProgram::ShaderProgram(std::string vertexFile, std::string fragmentFile) {
 }
 
 void ShaderProgram::bindAttributes() const {
+}
+
+void ShaderProgram::getAllUniformLocations() {
 }
 
 void ShaderProgram::start() const {
@@ -96,5 +102,21 @@ ShaderProgram::~ShaderProgram() {
 
 GLuint ShaderProgram::getUniformLocation(const std::string &uniformName) const {
   return glGetUniformLocation(m_programId, uniformName.c_str());
+}
+
+void ShaderProgram::loadFloat(GLint location, GLfloat value) const {
+  glUniform1f(location, value);
+}
+
+void ShaderProgram::loadVector3(GLint location, glm::vec3 value) const {
+  glUniform3f(location, value.x, value.y, value.z);
+}
+
+void ShaderProgram::loadBool(GLint location, bool value) const {
+  glUniform1f(location, value ? 1 : 0);
+}
+
+void ShaderProgram::loadMatrix(GLint location, glm::mat4 matrix) const {
+  glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
