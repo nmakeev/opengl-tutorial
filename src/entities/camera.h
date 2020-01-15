@@ -12,11 +12,12 @@ class Camera {
 public:
   Camera();
 
+  glm::vec3 GetPosition() const;
   float GetPitch() const;
   float GetYaw() const;
   float GetRoll() const;
 
-  void Move();
+  void Move(int key);
 
 private:
   glm::vec3 m_position;

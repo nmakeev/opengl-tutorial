@@ -39,6 +39,7 @@ void Renderer::render(Entity& entity, StaticShader& shader) {
   glBindVertexArray(0);
 }
 
+//TODO: how to build projection matrix http://www.opengl-tutorial.org/ru/beginners-tutorials/tutorial-3-matrices/
 void Renderer::createProjectionMatrix() {
   float aspectRatio = m_width / m_height;
   float yScale = (1.f / tanf(glm::radians(FOV / 2))) * aspectRatio;

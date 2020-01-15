@@ -24,6 +24,15 @@ glm::mat4 createTransformationMatrix(glm::vec3 translation, glm::vec3 rotation, 
   return result;
 }
 
+glm::mat4 createViewMatrix(const Camera& camera) {
+  using namespace glm;
+  mat4 result{1.f};
+  result = rotate(result, radians(camera.GetPitch()), vec3(1, 0, 0));
+  result = rotate(result, radians(camera.GetYaw()), vec3(0, 1, 0));
+  result = translate(result, -camera.GetPosition());
+  return result;
+}
+
 void checkError(int pos) {
   GLenum error = glGetError();
   if (error == 0)

@@ -9,8 +9,10 @@
 #include "shaders/static_shader.h"
 #include "textures/model_texture.h"
 #include "models/textured_model.h"
+#include "utils.h"
 
 #include <vector>
+#include <src/entities/camera.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
@@ -19,9 +21,23 @@ Renderer renderer {
         70, .1f, 1000.f, WINDOW_WIDTH, WINDOW_HEIGHT //TODO: think about width, height!!!!!!!
 };
 
+Camera camera;
+
 void processInput(GLFWwindow* window) {
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
+
+  if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    camera.Move(GLFW_KEY_W);
+
+  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    camera.Move(GLFW_KEY_A);
+
+  if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    camera.Move(GLFW_KEY_S);
+
+  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    camera.Move(GLFW_KEY_D);
 }
 
 void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
@@ -109,9 +125,9 @@ int main()
     processInput(window);
 
     renderer.loadProjectionMatrixTo(shader); //TODO: no need to pass proj matrix each time!!!
-
     renderer.prepare();
     shader.start();
+    shader.loadViewMatrix(createViewMatrix(camera));
     renderer.render(entity, shader);
     shader.stop();
 
