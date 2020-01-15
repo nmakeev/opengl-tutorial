@@ -4,7 +4,7 @@ ThinMatrix OpenGL tutorial, but on C++
 
 TODO:
 
-- [ ] View matrix
+- [x] View matrix
 - [ ] Models loading
 
 Additional tasks:
