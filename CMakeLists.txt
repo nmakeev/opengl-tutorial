@@ -3,9 +3,10 @@ project(opengl_tutorial)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
-
-set(glfw3_DIR D:/tools/glfw/lib/cmake/glfw3)
+IF (WIN32)
+    set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
+    set(glfw3_DIR D:/tools/glfw/lib/cmake/glfw3)
+ENDIF()
 
 find_package(glfw3 3.3 REQUIRED)
 find_package(OpenGL REQUIRED)
