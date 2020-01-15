@@ -12,7 +12,12 @@
 
 #include <vector>
 
-#include <memory>
+const int WINDOW_WIDTH = 800;
+const int WINDOW_HEIGHT = 600;
+
+Renderer renderer {
+        70, .1f, 1000.f, WINDOW_WIDTH, WINDOW_HEIGHT //TODO: think about width, height!!!!!!!
+};
 
 void processInput(GLFWwindow* window) {
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -21,6 +26,7 @@ void processInput(GLFWwindow* window) {
 
 void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
   glViewport(0, 0, width, height);
+  renderer.updateScreenSize(width, height);
 }
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
@@ -40,8 +46,6 @@ int main()
 #endif
 
   //TODO: settings there?
-  const int WINDOW_WIDTH = 800;
-  const int WINDOW_HEIGHT = 600;
 
   //window part
   GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "OpenGL Tutorial Project", NULL, NULL);
@@ -66,9 +70,6 @@ int main()
   glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 
   Loader loader;
-  Renderer renderer {
-    70, .1f, 1000.f, WINDOW_WIDTH, WINDOW_HEIGHT //TODO: think about width, height!!!!!!!
-  };
 
   std::vector<float> verticies = {
        -0.5f, 0.5f, 0.0f,   //v0
@@ -97,7 +98,7 @@ int main()
 
   StaticShader shader;
   shader.Init();
-  renderer.loadProjectionMatrixTo(shader);
+
 
   Entity entity {
     std::move(texturedModel), glm::vec3(0, 0, -2), glm::vec3(0, 0, 0), 1
@@ -106,6 +107,8 @@ int main()
   while (!glfwWindowShouldClose(window))
   {
     processInput(window);
+
+    renderer.loadProjectionMatrixTo(shader); //TODO: no need to pass proj matrix each time!!!
 
     renderer.prepare();
     shader.start();

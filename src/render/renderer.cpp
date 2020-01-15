@@ -59,3 +59,10 @@ void Renderer::loadProjectionMatrixTo(StaticShader& shader) const {
   shader.loadProjectionMatrix(m_projectionMatrix);
   shader.stop();
 }
+
+void Renderer::updateScreenSize(float width, float height) {
+  m_width = width;
+  m_height = height;
+
+  createProjectionMatrix();
+}

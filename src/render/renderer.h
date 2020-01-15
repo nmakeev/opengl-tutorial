@@ -24,12 +24,14 @@ public:
   void render(Entity& entity, StaticShader& shader);
 
   void loadProjectionMatrixTo(StaticShader& shader) const; //TODO: think about this!
+
+  void updateScreenSize(float width, float height);
 private:
   const float FOV;
   const float NEAR_PLANE;
   const float FAR_PLANE;
 
-  float m_width;
+  float m_width; //TODO: change to int!
   float m_height;
 
   glm::mat4 m_projectionMatrix;
