@@ -88,22 +88,77 @@ int main()
   Loader loader;
 
   std::vector<float> verticies = {
-       -0.5f, 0.5f, 0.0f,   //v0
-       -0.5f, -0.5f, 0.0f,  //v1
-       0.5f, -0.5f, 0.0f,   //v2
-       0.5f, 0.5f, 0.0f,    //v3
+          -0.5f,0.5f,-0.5f,
+          -0.5f,-0.5f,-0.5f,
+          0.5f,-0.5f,-0.5f,
+          0.5f,0.5f,-0.5f,
+
+          -0.5f,0.5f,0.5f,
+          -0.5f,-0.5f,0.5f,
+          0.5f,-0.5f,0.5f,
+          0.5f,0.5f,0.5f,
+
+          0.5f,0.5f,-0.5f,
+          0.5f,-0.5f,-0.5f,
+          0.5f,-0.5f,0.5f,
+          0.5f,0.5f,0.5f,
+
+          -0.5f,0.5f,-0.5f,
+          -0.5f,-0.5f,-0.5f,
+          -0.5f,-0.5f,0.5f,
+          -0.5f,0.5f,0.5f,
+
+          -0.5f,0.5f,0.5f,
+          -0.5f,0.5f,-0.5f,
+          0.5f,0.5f,-0.5f,
+          0.5f,0.5f,0.5f,
+
+          -0.5f,-0.5f,0.5f,
+          -0.5f,-0.5f,-0.5f,
+          0.5f,-0.5f,-0.5f,
+          0.5f,-0.5f,0.5f
   };
 
   std::vector<int> indicies = {
-          0, 1, 3,
-          3, 1, 2
+          0,1,3,
+          3,1,2,
+          4,5,7,
+          7,5,6,
+          8,9,11,
+          11,9,10,
+          12,13,15,
+          15,13,14,
+          16,17,19,
+          19,17,18,
+          20,21,23,
+          23,21,22
   };
 
   std::vector<float> textureCoords = {
-          0.f, 0.f,
-          0.f, 1.f,
-          1.f, 1.f,
-          1.f, 0.f
+          0,0,
+          0,1,
+          1,1,
+          1,0,
+          0,0,
+          0,1,
+          1,1,
+          1,0,
+          0,0,
+          0,1,
+          1,1,
+          1,0,
+          0,0,
+          0,1,
+          1,1,
+          1,0,
+          0,0,
+          0,1,
+          1,1,
+          1,0,
+          0,0,
+          0,1,
+          1,1,
+          1,0
   };
 
   RawModel model = loader.loadToVAO(move(verticies), move(textureCoords), move(indicies));
@@ -117,12 +172,14 @@ int main()
 
 
   Entity entity {
-    std::move(texturedModel), glm::vec3(0, 0, -2), glm::vec3(0, 0, 0), 1
+    std::move(texturedModel), glm::vec3(0, 0, -3), glm::vec3(0, 0, 0), 1
   };
 
   while (!glfwWindowShouldClose(window))
   {
     processInput(window);
+
+    entity.increaseRotation(1, 1, 0);
 
     renderer.loadProjectionMatrixTo(shader); //TODO: no need to pass proj matrix each time!!!
     renderer.prepare();

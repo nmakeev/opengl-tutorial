@@ -5,10 +5,8 @@
 #include <glm/mat4x4.hpp>
 #include <glad/glad.h>
 #include <src/utils.h>
-#include <GLFW/glfw3.h>
 
 #include "renderer.h"
-#include "../models/textured_model.h"
 
 Renderer::Renderer(float fov, float nearPlane, float farPlane, float width, float height)
   : FOV(fov), NEAR_PLANE(nearPlane), FAR_PLANE(farPlane), m_width(width), m_height(height) {
@@ -17,8 +15,9 @@ Renderer::Renderer(float fov, float nearPlane, float farPlane, float width, floa
 
 
 void Renderer::prepare() {
+  glEnable(GL_DEPTH_TEST);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void Renderer::render(Entity& entity, StaticShader& shader) {
