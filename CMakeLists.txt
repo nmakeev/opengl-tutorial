@@ -11,7 +11,7 @@ ENDIF()
 find_package(glfw3 3.3 REQUIRED)
 find_package(OpenGL REQUIRED)
 
-add_executable(opengl_tutorial src/main.cpp src/models/raw_model.cpp src/models/raw_model.h src/render/loader.cpp src/render/loader.h src/render/renderer.cpp src/render/renderer.h src/shaders/shader_program.cpp src/shaders/shader_program.h src/shaders/static_shader.cpp src/shaders/static_shader.h src/stb_image.cpp src/textures/model_texture.cpp src/textures/model_texture.h src/models/textured_model.cpp src/models/textured_model.h src/utils.cpp src/utils.h)
+add_executable(opengl_tutorial src/main.cpp src/models/raw_model.cpp src/models/raw_model.h src/render/loader.cpp src/render/loader.h src/render/renderer.cpp src/render/renderer.h src/shaders/shader_program.cpp src/shaders/shader_program.h src/shaders/static_shader.cpp src/shaders/static_shader.h src/stb_image.cpp src/textures/model_texture.cpp src/textures/model_texture.h src/models/textured_model.cpp src/models/textured_model.h src/utils.cpp src/utils.h src/entities/entity.cpp src/entities/entity.h)
 
 target_link_libraries(opengl_tutorial glfw)
 target_include_directories(opengl_tutorial PUBLIC ${OPENGL_INCLUDE_DIR})

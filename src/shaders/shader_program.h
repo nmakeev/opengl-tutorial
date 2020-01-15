@@ -15,6 +15,7 @@ class ShaderProgram {
 
 public:
   ShaderProgram(std::string vertexFile, std::string fragmentFile);
+  void Init();
 
   ~ShaderProgram();
 
@@ -22,8 +23,8 @@ public:
   void stop() const;
 
 protected:
-  virtual void bindAttributes() const;
-  virtual void getAllUniformLocations();
+  virtual void bindAttributes() const = 0;
+  virtual void getAllUniformLocations() = 0;
 
   void bindAttribute(int attribute, std::string name) const;
   GLuint getUniformLocation(const std::string& uniformName) const;
@@ -33,6 +34,9 @@ protected:
   void loadMatrix(GLint location, glm::mat4 matrix) const;
 
 private:
+  std::string m_vertexFile;
+  std::string m_fragmentFile;
+
   GLuint m_programId;
   GLuint m_vertexShaderId;
   GLuint m_fragmentShaderId;

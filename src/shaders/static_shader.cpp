@@ -14,8 +14,13 @@ void StaticShader::bindAttributes() const {
 
 void StaticShader::getAllUniformLocations() {
   m_locationTransformationMatrix = getUniformLocation("transformationMatrix");
+  m_locationProjectionMatrix = getUniformLocation("projectionMatrix");
 }
 
 void StaticShader::loadTransformationMatrix(glm::mat4 matrix) {
   loadMatrix(m_locationTransformationMatrix, matrix);
+}
+
+void StaticShader::loadProjectionMatrix(glm::mat4 matrix) {
+  loadMatrix(m_locationProjectionMatrix, matrix);
 }

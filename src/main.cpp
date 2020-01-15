@@ -12,6 +12,8 @@
 
 #include <vector>
 
+#include <memory>
+
 void processInput(GLFWwindow* window) {
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
@@ -64,7 +66,9 @@ int main()
   glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 
   Loader loader;
-  Renderer renderer;
+  Renderer renderer {
+    70, .1f, 1000.f, WINDOW_WIDTH, WINDOW_HEIGHT //TODO: think about width, height!!!!!!!
+  };
 
   std::vector<float> verticies = {
        -0.5f, 0.5f, 0.0f,   //v0
@@ -92,6 +96,12 @@ int main()
   };
 
   StaticShader shader;
+  shader.Init();
+  renderer.loadProjectionMatrixTo(shader);
+
+  Entity entity {
+    std::move(texturedModel), glm::vec3(0, 0, -2), glm::vec3(0, 0, 0), 1
+  };
 
   while (!glfwWindowShouldClose(window))
   {
@@ -99,7 +109,7 @@ int main()
 
     renderer.prepare();
     shader.start();
-    renderer.render(texturedModel);
+    renderer.render(entity, shader);
     shader.stop();
 
     glfwSwapBuffers(window);
@@ -109,3 +119,4 @@ int main()
   glfwTerminate();
   return 0;
 }
+

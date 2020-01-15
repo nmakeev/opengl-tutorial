@@ -18,6 +18,7 @@ class StaticShader : public ShaderProgram {
 public:
   StaticShader();
   void loadTransformationMatrix(glm::mat4 matrix);
+  void loadProjectionMatrix(glm::mat4 matrix);
 
 protected:
   void bindAttributes() const override;
@@ -25,6 +26,7 @@ protected:
 
 private:
   GLint m_locationTransformationMatrix;
+  GLint m_locationProjectionMatrix;
 };
 
 

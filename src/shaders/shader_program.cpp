@@ -50,16 +50,19 @@ void checkShaderError(int shaderId) {
   }
 }
 
-ShaderProgram::ShaderProgram(std::string vertexFile, std::string fragmentFile) {
-  m_vertexShaderId = loadShader(move(vertexFile), GL_VERTEX_SHADER);
-  m_fragmentShaderId = loadShader(move(fragmentFile), GL_FRAGMENT_SHADER);
+ShaderProgram::ShaderProgram(std::string vertexFile, std::string fragmentFile) : m_vertexFile(move(vertexFile)), m_fragmentFile(move(fragmentFile)) {
+}
+
+void ShaderProgram::Init() {
+  m_vertexShaderId = loadShader(move(m_vertexFile), GL_VERTEX_SHADER);
+  m_fragmentShaderId = loadShader(move(m_fragmentFile), GL_FRAGMENT_SHADER);
   m_programId = glCreateProgram();
   glAttachShader(m_programId, m_vertexShaderId);
   glAttachShader(m_programId, m_fragmentShaderId);
-  bindAttributes();
+  this->bindAttributes();
   glLinkProgram(m_programId);
   glValidateProgram(m_programId);
-  getAllUniformLocations();
+  this->getAllUniformLocations();
 
   checkShaderError(m_vertexShaderId);
   checkShaderError(m_fragmentShaderId);
@@ -69,12 +72,6 @@ ShaderProgram::ShaderProgram(std::string vertexFile, std::string fragmentFile) {
    * checkShaderError puts there value 0 if there is no mistakes, otherwise - 1;
    * Then, after loading we can check this flag and shut down program gracefully with error message box
    */
-}
-
-void ShaderProgram::bindAttributes() const {
-}
-
-void ShaderProgram::getAllUniformLocations() {
 }
 
 void ShaderProgram::start() const {
@@ -119,4 +116,5 @@ void ShaderProgram::loadBool(GLint location, bool value) const {
 void ShaderProgram::loadMatrix(GLint location, glm::mat4 matrix) const {
   glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
+
 
