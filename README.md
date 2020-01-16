@@ -12,3 +12,5 @@ Additional tasks:
 - [ ] Fix projection matrix is setting each frame
 - [ ] Move stb_image to lib folder
 - [ ] Move all libs to lib folder?
+- [ ] Imgui integration
+- [ ] Save/load scene management
